@@ -12,9 +12,9 @@ inquirer.prompt([{ name: 'nome', message: 'Qual o seu nome?' },]).then((answers)
         const idade = answers.idade
 
         if (idade >= 18) {
-            console.log(chalk.green(`Olá ${nome}, você pode dirigir!`))
+            console.log(chalk.bgYellow.green.bold(`Olá ${nome}, você pode dirigir!`))
         } else {
-            console.log(chalk.red(`Olá ${nome}, você não pode dirigir!`))
+            console.log(chalk.bgYellow.red.bold(`Olá ${nome}, você não pode dirigir!`))
         }
     })
         .catch((err) => console.log(err))
