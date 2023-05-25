@@ -14,10 +14,16 @@ function operation() {
         choices: [
             'Criar uma nova conta',
             'Consultar saldo',
+            'Consultar Contas',
             'Depositar',
+            'Transferir',
             'Sacar',
-            'Sair']
-    }])
+            'Encerrar Conta',
+            'Sair'
+        ],
+    },
+    ],
+    )
         .then(answer => {
             const action = answer['action']
 
@@ -26,11 +32,20 @@ function operation() {
             } else if (action === 'Consultar saldo') {
                 checkBalance()
             }
+            else if (action === 'Consultar Contas') {
+                showAccountList()
+            }
             else if (action === 'Depositar') {
                 deposit()
             }
             else if (action === 'Sacar') {
                 withdraw()
+            }
+            else if (action === 'Transferir') {
+                transfer()
+            }
+            else if (action === 'Encerrar Conta') {
+                deleteAccount()
             }
             else if (action === 'Sair') {
                 console.log(chalk.bgRed.bold('Saindo...'))
@@ -40,13 +55,40 @@ function operation() {
         .catch(err => console.log(err))
 }
 
+function operation2() {
+
+    inquirer.prompt([{
+        type: 'list',
+        name: 'action',
+        message: 'O que você deseja fazer?',
+        choices: [
+            'Menu Principal',
+            'Sair',
+        ],
+    },
+    ],
+    )
+        .then(answer => {
+            const action = answer['action']
+
+            if (action === 'Menu Principal') {
+                operation()
+            } else if (action === 'Sair') {
+                console.log(chalk.bgRed.bold('Saindo...'))
+                process.exit()
+            }
+        }
+        )
+}
+
 function createAccount() {
     console.log(chalk.blue.bold('Criando uma nova conta...'))
-    console.log(chalk.bgGreen.bold('Nova conta criada com sucesso!'))
     console.log(chalk.blue.bold('Defina as opções da sua conta a seguir'))
 
     buildAccount()
 }
+
+
 
 function buildAccount() {
 
@@ -81,6 +123,8 @@ function buildAccount() {
             console.log(err)
         )
 }
+
+
 
 
 
@@ -121,8 +165,6 @@ function deposit() {
 
             const accountName = answer['accountName']
 
-            // verify if account exists
-
             if (!checkAccount(accountName)) {
                 return deposit()
             }
@@ -147,6 +189,7 @@ function deposit() {
 
 
 
+
 function checkAccount(accountName) {
     if (!fs.existsSync(`accounts/${accountName}.json`)) {
         console.log(chalk.bgRed.bold('Esta conta não existe, tente novamente!'))
@@ -155,6 +198,8 @@ function checkAccount(accountName) {
 
     return true
 }
+
+
 
 
 
@@ -180,6 +225,8 @@ function addAmount(accountName, value) {
 
 
 
+
+
 function getAccount(accountName) {
     const accountJSON = fs.readFileSync(`accounts/${accountName}.json`, {
         encoding: 'utf-8',
@@ -188,6 +235,8 @@ function getAccount(accountName) {
 
     return JSON.parse(accountJSON)
 }
+
+
 
 
 
@@ -221,6 +270,10 @@ function withdraw() {
 }
 
 
+
+
+
+
 function removeValue(accountName, value) {
 
     const accountData = getAccount(accountName)
@@ -245,4 +298,116 @@ function removeValue(accountName, value) {
 
     console.log(chalk.bgGreen.bold(`Saque realizado com sucesso, Valor retirado: R$${value}!`))
     operation()
+}
+
+
+
+function showAccountList() {
+    const accountList = getAccountList()
+    console.log(chalk.bgBlue.bold('Contas disponíveis:'))
+    accountList.forEach((account) => {
+        console.log(chalk.bgGreen.bold(account))
+    })
+    return operation2()
+}
+
+
+
+function getAccountList() {
+    const accountFiles = fs.readdirSync('accounts')
+    return accountFiles.map((file) => file.replace('.json', ''))
+}
+
+
+
+function transfer() {
+    inquirer
+        .prompt([
+            {
+                name: 'sourceAccount',
+                message: 'Digite o nome da conta de origem: ',
+            },
+            {
+                name: 'destinationAccount',
+                message: 'Digite o nome da conta de destino: ',
+            },
+            {
+                name: 'amount',
+                message: 'Digite o valor a ser transferido: ',
+            },
+        ])
+        .then((answer) => {
+            const sourceAccount = answer['sourceAccount']
+            const destinationAccount = answer['destinationAccount']
+            const amount = parseFloat(answer['amount'])
+
+            if (!checkAccount(sourceAccount) || !checkAccount(destinationAccount)) {
+                return transfer()
+            }
+
+            if (amount <= 0) {
+                console.log(chalk.bgRed.bold('O valor da transferência deve ser maior que zero.'))
+                return transfer()
+            }
+
+            const sourceAccountData = getAccount(sourceAccount)
+            const destinationAccountData = getAccount(destinationAccount)
+
+            if (sourceAccountData.balance < amount) {
+                console.log(chalk.bgRed.bold('Saldo insuficiente na conta de origem!'))
+                return transfer()
+            }
+
+            sourceAccountData.balance -= amount
+            destinationAccountData.balance += amount
+
+            fs.writeFileSync(
+                `accounts/${sourceAccount}.json`,
+                JSON.stringify(sourceAccountData),
+                function (err) {
+                    console.log(err)
+                }
+            )
+
+            fs.writeFileSync(
+                `accounts/${destinationAccount}.json`,
+                JSON.stringify(destinationAccountData),
+                function (err) {
+                    console.log(err)
+                }
+            )
+
+            console.log(
+                chalk.bgGreen.bold(
+                    `Transferência realizada com sucesso! Valor transferido: R$${amount}`
+                )
+            )
+            operation()
+        })
+        .catch((err) => console.log(err))
+}
+
+
+
+function deleteAccount() {
+    inquirer
+        .prompt([
+            {
+                name: 'accountName',
+                message: 'Digite o nome da conta a ser encerrada: ',
+            },
+        ])
+        .then((answer) => {
+            const accountName = answer['accountName']
+
+            if (!checkAccount(accountName)) {
+                return deleteAccount()
+            }
+
+            fs.unlinkSync(`accounts/${accountName}.json`)
+
+            console.log(chalk.bgGreen.bold('Conta encerrada com sucesso!'))
+            operation2()
+        })
+        .catch((err) => console.log(err))
 }
