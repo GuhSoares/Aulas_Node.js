@@ -1,0 +1,14 @@
+<h1>catalogo</h1>
+<ul>
+    {{#each produtos}}
+    <li class="produto">
+        <img src="{{Img}}" alt="{{nome}}">
+        <div>
+            <h2>{{nome}}</h2>
+            <p>{{descricao}}</p>
+            <p>R$ {{preco}}</p>
+            <button>Comprar</button>
+        </div>
+    </li>
+    {{/each}}
+</ul>
