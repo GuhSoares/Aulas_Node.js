@@ -8,7 +8,7 @@ const conn = require('./db/conn')
 const User = require('./models/User')
 const Address = require('./models/Address')
 
-app.engine('handlebars', exphbs())
+app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
 
 app.use(
