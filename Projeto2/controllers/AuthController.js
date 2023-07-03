@@ -14,8 +14,9 @@ module.exports = class UserController {
     const user = await User.findOne({ where: { email: email } })
 
     if (!user) {
-      req.flash('message', 'E-mail ou Senha incorreta!')
-        res.render('auth/login')
+      res.render('auth/login', {
+        message: 'Usuário não encontrado!',
+      })
 
       return
     }
@@ -24,8 +25,9 @@ module.exports = class UserController {
     const passwordMatch = bcrypt.compareSync(password, user.password)
 
     if (!passwordMatch) {
-        req.flash('message', 'E-mail ou Senha incorreta!')
-        res.render('auth/login')
+      res.render('auth/login', {
+        message: 'Senha inválida!',
+      })
 
       return
     }

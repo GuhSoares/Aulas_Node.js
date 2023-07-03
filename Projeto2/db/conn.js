@@ -1,15 +1,15 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize')
 
 const sequelize = new Sequelize('projeto2', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql',
-});
+  host: 'localhost',
+  dialect: 'mysql',
+})
 
 try {
-    sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-} catch (err) {
-    console.error(`Unable to connect to the database:, ${err}`)
+  sequelize.authenticate()
+  console.log('Conectamos com o Sequelize!')
+} catch (error) {
+  console.error('Não foi possível conectar:', error)
 }
 
-module.exports = sequelize;
+module.exports = sequelize
