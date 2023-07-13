@@ -191,7 +191,8 @@ try {
         try {
 
             // returns user updated data
-            await User.findOneAndUpdate({_id: user._id},
+            await User.findOneAndUpdate({
+                _id: user._id},
                 {$set: user},
                 {new: true},
                 )
