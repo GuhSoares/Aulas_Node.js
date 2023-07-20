@@ -4,15 +4,22 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
 import Footer from './components/layouts/Footer';
 import Container from './components/layouts/Container';
+import Message from './components/layouts/Message';
+
 /* pages */
 import Home from './components/pages/Auth/Home';
 import Login from './components/pages/Auth/Login';
 import Register from './components/pages/Auth/Register';
 
+/* context */
+import { UserProvider } from './context/UserContext';
+
 function App() {
   return (
     <Router>
+      <UserProvider>
     <Navbar />
+    <Message />
     <Container>
     <Routes> 
       <Route path="/login" element={<Login />} />
@@ -21,6 +28,7 @@ function App() {
     </Routes>
     </Container>
     <Footer />
+   </UserProvider>
     </Router>
   );
 }

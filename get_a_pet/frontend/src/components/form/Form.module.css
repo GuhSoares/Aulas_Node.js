@@ -22,6 +22,7 @@
   font-weight: bold;
   transition: background-color 0.2s ease;
   transition: transform 0.2s ease;
+  animation: pulseButton 0.3s linear;
 }
 
 .form_container input[type='submit']:hover {
