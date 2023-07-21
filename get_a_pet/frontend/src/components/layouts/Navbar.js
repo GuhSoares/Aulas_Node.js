@@ -1,10 +1,17 @@
 import {Link} from 'react-router-dom';
+import { useContext } from "react";
 
 import styles from './Navbar.module.css';
 
 import Logo from '../../assets/img/logo.png';
 
+/* context */
+import { Context } from "../../context/UserContext";
+
 function Navbar() {
+
+const {authenticated, logout} = useContext(Context);
+
     return(
         <nav className={styles.navbar}>
             <div className={styles.navbar_logo}>
@@ -15,12 +22,29 @@ function Navbar() {
                 <li>
                     <Link to="/">Adotar</Link>
                 </li>
+                {authenticated ? (
+                    <>
+                    <li>
+                    <Link to="/pet/mypets">Meus Pets</Link>
+                </li>
+                    <li>
+                    <Link to="/user/Profile">Perfil</Link>
+                </li>
+                <li onClick={logout}>
+                    <Link to="/">Sair</Link>
+                </li>
+                    </>
+                ) :(<>
                 <li>
-                <Link to="/login">Entrar</Link>
+                    <Link to="/login">Entrar</Link>
                 </li>
                 <li>
-                <Link to="/register">Cadastrar</Link>
+                    <Link to="/register">Cadastrar</Link>
                 </li>
+                    </>)
+                
+                }
+                
             </ul>
         </nav>
     )
