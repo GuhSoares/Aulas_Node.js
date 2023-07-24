@@ -7,7 +7,7 @@ import Container from './components/layouts/Container';
 import Message from './components/layouts/Message';
 
 /* pages */
-import Home from './components/pages/Auth/Home';
+import Home from './components/pages/Home';
 import Login from './components/pages/Auth/Login';
 import Register from './components/pages/Auth/Register';
 import Profile from './components/pages/User/Profile';
