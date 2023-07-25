@@ -1,0 +1,67 @@
+/* Estilos gerais para o container */
+.pet_details_container {
+  text-align: center;
+}
+
+.pet_details_container p {
+  margin-bottom: 1em;
+}
+
+.pet_details_header {
+  margin-bottom: 2em;
+}
+
+/* Estilos para as imagens dos animais */
+.pet_images {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.pet_images img {
+  max-height: 200px;
+  margin-right: 1em;
+  transition: transform 0.3s ease; /* Adicionamos a transição para criar a animação */
+}
+
+.pet_images img:hover {
+  transform: scale(1.1); /* Faz a imagem aumentar em 10% quando o mouse passa por cima */
+}
+
+/* Estilos para o botão de adotar */
+.pet_details_container button {
+  border-radius: 8px;
+  background-color: #25b456;
+  color: #fff;
+  border: none;
+  max-width: 200px;
+  min-height: 2.5rem;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Adicionamos a transição para criar a animação */
+}
+
+/* Estilos para o efeito de hover do botão */
+.pet_details_container button:hover {
+  background-color: #1c8a42;
+}
+
+/* Estilos para o efeito de clique do botão */
+.pet_details_container button:active {
+  background-color: #0f602b;
+}
+
+/* Estilos para o link de registro */
+.pet_details_container a {
+    color: #1338b1; /* Cor do link */
+    text-decoration: none; /* Adiciona um sublinhado ao link */
+    cursor: pointer; /* Altera o cursor do mouse para um apontador */
+  }
+  
+  .pet_details_container a:hover {
+    color: #123788; /* Altera a cor do link quando o mouse passa por cima */
+    text-decoration: none; /* Mantém o sublinhado mesmo quando o mouse passa por cima */
+  }
+  
