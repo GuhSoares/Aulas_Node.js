@@ -1,0 +1,90 @@
+/* Estilos para o cabeçalho */
+.pet_home_header {
+    margin-bottom: 2em;
+    text-align: center;
+  }
+  
+  .pet_home_header h1 {
+    margin-bottom: 0.3em;
+    color: #16479d; /* Cor azul para o título principal */
+  }
+  
+  /* Estilos para os containers de pets */
+  .pet_section {
+    margin-bottom: 2em;
+  }
+  
+  .pet_container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  /* Estilos para cada cartão de pet */
+  .pet_card {
+    width: calc(30% - 2em);
+    margin: 1em;
+    padding: 1.5em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Adiciona transição para a sombra */
+    position: relative; /* Adicione posição relativa para ajustar a sombra */
+  }
+  
+  .pet_card_image {
+    background-size: cover;
+    background-position: center;
+    height: 225px;
+    width: 100%;
+    margin-bottom: 1.2em;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Adicione a transição também para a sombra */
+  }
+  .pet_card a {
+    display: inline-block;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #16479d;
+    border: none;
+    min-width: 100px;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s ease-in-out; /* Adicione a transição para a sombra */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pet_card a:hover {
+    background-color: #ffd400;
+    color: #16479d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efeito de sombra suave ao passar o mouse */
+  }
+  
+  /* Animação ao passar o mouse */
+  .pet_card:hover {
+    transform: scale(1.05); /* Aumenta o cartão em 5% (1.05x) ao passar o mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Adicione uma sombra mais suave */
+  }
+  
+  .pet_card:hover .pet_card_image {
+    transform: scale(1.1); /* Aumenta a imagem em 10% (1.1x) ao passar o mouse */
+  }
+  
+  /* Estilo para a mensagem de pet adotado */
+  .adopted_text {
+    font-weight: bold;
+    color: #25b456;
+    padding: 15px;
+    background-color: #f0f8f0;
+    border-radius: 8px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Animação ao passar o mouse na mensagem de pet adotado */
+  .pet_card:hover .adopted_text {
+    background-color: #d9f6dc; /* Ajuste a cor de fundo ao passar o mouse */
+  }
